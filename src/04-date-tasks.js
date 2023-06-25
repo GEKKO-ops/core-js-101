@@ -121,22 +121,18 @@ function timeSpanToString(startDate, endDate) {
  */
 function angleBetweenClockHands(date) {
   const time = new Date(date);
-  const hours = time.getUTCHours() % 12; // Convert hours to 12-hour format
+  const hours = time.getUTCHours() % 12;
   const minutes = time.getUTCMinutes();
 
-  // Calculate the angles for the hour and minute hands
-  const hourAngle = (hours * 30 + minutes * 0.5) * (Math.PI / 180);
-  const minuteAngle = (minutes * 6) * (Math.PI / 180);
+  const hourAngle = (hours * 30 + minutes * 0.5);
+  const minuteAngle = (minutes * 6);
 
-  // Calculate the absolute angle between the hands
+
   let angle = Math.abs(hourAngle - minuteAngle);
 
-  // Adjust the angle to be within the range of 0 to Math.PI
-  if (angle > Math.PI) {
-    angle = 2 * Math.PI - angle;
-  }
+  angle = Math.min(360 - angle, angle);
 
-  return angle;
+  return (Math.PI * angle) / 180;
 }
 
 
